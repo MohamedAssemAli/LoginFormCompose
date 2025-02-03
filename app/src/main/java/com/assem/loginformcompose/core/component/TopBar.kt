@@ -15,7 +15,8 @@ import com.assem.loginformcompose.R
 @Composable
 fun MyTopBar(
     icon: Int = R.drawable.ic_back,
-    onBackClick: () -> Unit,
+    isBackVisibilie: Boolean = true,
+    onBackClick: () -> Unit = {},
     text: String = "",
     textColor: Color = Color.Black,
 ) {
@@ -24,12 +25,14 @@ fun MyTopBar(
             Text(text, maxLines = 1, overflow = TextOverflow.Ellipsis, color = textColor)
         },
         navigationIcon = {
-            IconButton(onClick = onBackClick) {
-                Icon(
-                    painter = painterResource(icon),
-                    contentDescription = "Back Button",
-                    tint = Color.Black
-                )
+            if (isBackVisibilie) {
+                IconButton(onClick = onBackClick) {
+                    Icon(
+                        painter = painterResource(icon),
+                        contentDescription = "Back Button",
+                        tint = Color.Black
+                    )
+                }
             }
         },
     )

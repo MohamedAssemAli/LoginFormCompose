@@ -3,12 +3,15 @@ package com.assem.loginformcompose.core.navigation.screens
 import kotlinx.serialization.Serializable
 
 @Serializable
-object AuthScreens {
+object RootScreens {
     @Serializable
     object Splash
 
     @Serializable
     object Login
+
+    @Serializable
+    object SignUp
 
     @Serializable
     object OTP

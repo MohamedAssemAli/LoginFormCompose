@@ -4,30 +4,46 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.mansety.android.core.navigation.screens.AuthScreens
-import com.mansety.android.features.login.ui.login.LoginScreen
-import com.mansety.android.features.login.ui.OtpScreen
-import com.mansety.android.features.main.ui.MainScreen
-import com.mansety.android.features.registration.ui.AddPersonalInfoScreen
-import com.mansety.android.features.registration.ui.SelectLevelScreen
-import com.mansety.android.features.registration.ui.SetPasswordScreen
-import com.mansety.android.features.splash.SplashScreen
+import com.assem.loginformcompose.core.navigation.screens.RootScreens
+import com.assem.loginformcompose.presentation.ForgetPasswordScreen
+import com.assem.loginformcompose.presentation.bottom_nav_screen.BottomNavScreen
+import com.assem.loginformcompose.presentation.login.LoginScreen
+import com.assem.loginformcompose.presentation.signup.SignUpScreen
+import com.assem.loginformcompose.presentation.splash.SplashScreen
 
 @Composable
 fun RootNavHost() {
     val navController = rememberNavController()
     NavHost(
         navController = navController,
-        startDestination = AuthScreens.Login,
-        startDestination = AuthScreens.MainScreen,
+        startDestination = RootScreens.Login,
     ) {
-        composable<AuthScreens.Splash> { SplashScreen() }
-        composable<AuthScreens.Login> { LoginScreen(navigateToOtp = {}) }
-        composable<AuthScreens.OTP> { OtpScreen() }
-        composable<AuthScreens.SetPassword> { SetPasswordScreen() }
-        composable<AuthScreens.SelectLevel> { SelectLevelScreen() }
-        composable<AuthScreens.PersonalInfo> { AddPersonalInfoScreen() }
-        composable<AuthScreens.ForgotPassword> { SplashScreen() }
-        composable<AuthScreens.MainScreen> { MainScreen() }
+        composable<RootScreens.Splash> { SplashScreen() }
+        composable<RootScreens.Login> {
+            LoginScreen(
+                navigateToHomeScreen = {
+                    navController.navigate(RootScreens.MainScreen)
+                },
+                navigateToForgotPasswordScreen = {
+                    navController.navigate(RootScreens.ForgotPassword)
+
+                },
+                navigateToSignUpScreen = {
+                    navController.navigate(RootScreens.SignUp)
+                },
+            )
+        }
+        composable<RootScreens.SignUp> {
+            SignUpScreen(
+                navigateToHomeScreen = {
+                    navController.navigate(RootScreens.MainScreen)
+                },
+                navigateToLoginScreen = {
+                    navController.navigate(RootScreens.Login)
+                },
+            )
+        }
+        composable<RootScreens.ForgotPassword> { ForgetPasswordScreen() }
+        composable<RootScreens.MainScreen> { BottomNavScreen() }
     }
 }
